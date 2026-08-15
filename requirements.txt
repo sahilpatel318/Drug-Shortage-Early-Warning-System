@@ -1,0 +1,15 @@
+# Pinned for reproducibility. Verified against Python 3.12.
+# Core pipeline (required):
+numpy==2.4.4
+pandas==3.0.2
+scikit-learn==1.8.0
+scipy==1.17.1
+requests==2.33.1
+
+# Optional narration engines (pipeline runs fully without these via the
+# deterministic template stub). Uncomment to enable:
+# anthropic==0.40.0
+# openai==1.54.0
+
+# Optional test runner:
+# pytest==8.3.4

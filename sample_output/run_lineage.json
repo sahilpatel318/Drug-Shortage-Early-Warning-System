@@ -1,0 +1,12 @@
+{
+  "data_source": "cache",
+  "generated_at": "2026-08-10T17:15:20Z",
+  "ingest_lineage": {
+    "cache_path": "data/raw/reports_cache.jsonl",
+    "cached_source": "synthetic",
+    "note": "Reused cached raw snapshot for reproducibility (underlying source: synthetic).",
+    "records": 784,
+    "resolved_source": "cache"
+  },
+  "metrics_sha256": "7c13689a08bbf2b6478016dbde4236fb1ed40c058632feb761d3fd101fb35161"
+}
