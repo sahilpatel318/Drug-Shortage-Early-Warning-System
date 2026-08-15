@@ -1,0 +1,1056 @@
+{
+  "best_single_feature_name": "hhi",
+  "classification_at_threshold": {
+    "f1": 0.481111,
+    "fn": 291,
+    "fp": 643,
+    "n": 5028,
+    "positives": 724,
+    "precision": 0.402416,
+    "recall": 0.598066,
+    "threshold": 0.1587,
+    "tn": 3661,
+    "tp": 433
+  },
+  "coefficients": [
+    {
+      "coef": -0.71402,
+      "feature": "cat_Respiratory"
+    },
+    {
+      "coef": 0.521012,
+      "feature": "single_supplier"
+    },
+    {
+      "coef": -0.44146,
+      "feature": "cat_Analgesic"
+    },
+    {
+      "coef": -0.408488,
+      "feature": "cat_Immunology"
+    },
+    {
+      "coef": -0.399377,
+      "feature": "cat_Cardiovascular"
+    },
+    {
+      "coef": -0.319543,
+      "feature": "cat_Endocrine"
+    },
+    {
+      "coef": 0.272363,
+      "feature": "cat_Anti-infective"
+    },
+    {
+      "coef": -0.215981,
+      "feature": "cat_Oncology"
+    },
+    {
+      "coef": -0.167409,
+      "feature": "suppliers"
+    },
+    {
+      "coef": -0.147306,
+      "feature": "category_recent_rate"
+    },
+    {
+      "coef": 0.131591,
+      "feature": "supply_shock_6m"
+    },
+    {
+      "coef": 0.126193,
+      "feature": "hhi"
+    },
+    {
+      "coef": 0.123439,
+      "feature": "log_past_onsets"
+    },
+    {
+      "coef": 0.112662,
+      "feature": "cat_CNS"
+    },
+    {
+      "coef": 0.065872,
+      "feature": "suppliers_lost_12m"
+    },
+    {
+      "coef": 0.033046,
+      "feature": "months_since_last_onset"
+    },
+    {
+      "coef": 0.004163,
+      "feature": "supplier_trend_6m"
+    }
+  ],
+  "config": {
+    "categories": [
+      "Oncology",
+      "Anti-infective",
+      "Cardiovascular",
+      "CNS",
+      "Endocrine",
+      "Analgesic",
+      "Respiratory",
+      "Immunology"
+    ],
+    "features": [
+      "suppliers",
+      "single_supplier",
+      "hhi",
+      "log_past_onsets",
+      "months_since_last_onset",
+      "supply_shock_6m",
+      "suppliers_lost_12m",
+      "supplier_trend_6m",
+      "category_recent_rate",
+      "cat_Oncology",
+      "cat_Anti-infective",
+      "cat_Cardiovascular",
+      "cat_CNS",
+      "cat_Endocrine",
+      "cat_Analgesic",
+      "cat_Respiratory",
+      "cat_Immunology"
+    ],
+    "lead_horizon_months": 6,
+    "min_history_months": 12,
+    "n_drugs": 240,
+    "period_months": 96,
+    "split_month": 66,
+    "warn_lookback_months": 12
+  },
+  "dataset": {
+    "test_positives": 724,
+    "test_prevalence": 0.143994,
+    "test_rows": 5028,
+    "train_positives": 1318,
+    "train_prevalence": 0.113201,
+    "train_rows": 11643
+  },
+  "determinism_hash": "515adb12c9d9fe8baccc9016a577e40b000d6277d77e53d0cc478c37384763f9",
+  "firewall": {
+    "features_independent_of_future": true,
+    "labels_depend_on_future": true,
+    "n_feature_cols": 17,
+    "n_rows": 16671,
+    "vault_fingerprint": "df5db16e85eecd7ad0e1fa94e65ac945356eed7bc8aeba1a4ac0c4db85c48668"
+  },
+  "lead_time": {
+    "flag_rate": 0.647959,
+    "flagged_ahead": 127,
+    "lead_days_hist": [
+      {
+        "count": 9,
+        "hi": 72.3,
+        "lo": 30.4
+      },
+      {
+        "count": 9,
+        "hi": 114.2,
+        "lo": 72.3
+      },
+      {
+        "count": 10,
+        "hi": 156.0,
+        "lo": 114.2
+      },
+      {
+        "count": 7,
+        "hi": 197.9,
+        "lo": 156.0
+      },
+      {
+        "count": 6,
+        "hi": 239.7,
+        "lo": 197.9
+      },
+      {
+        "count": 14,
+        "hi": 281.6,
+        "lo": 239.7
+      },
+      {
+        "count": 12,
+        "hi": 323.4,
+        "lo": 281.6
+      },
+      {
+        "count": 60,
+        "hi": 365.3,
+        "lo": 323.4
+      }
+    ],
+    "max_lead_days": 365.28,
+    "median_lead_days": 304.4,
+    "missed": 69,
+    "p25_lead_days": 182.64,
+    "p75_lead_days": 365.28,
+    "test_onsets_total": 196
+  },
+  "meta": {
+    "generated_at_utc": "2026-08-13T10:52:19Z",
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "project": "Drug Shortage Early Warning System",
+    "provenance": "SYNTHETIC",
+    "provenance_detail": "Data is synthetically generated with a planted supply chain hazard. Metrics are signal recovery on synthetic data, not a claim about real world shortages. Real source adapters for openFDA and Drug Shortages Canada are included for a networked run.",
+    "python": "3.12.3",
+    "seed": 20260813,
+    "sklearn": "1.5.2"
+  },
+  "pr_auc": {
+    "best_single_feature": 0.33764,
+    "logistic_regression": 0.385147,
+    "prevalence": 0.143994,
+    "random": 0.144896
+  },
+  "pr_auc_lift_over_prevalence": 0.241153,
+  "pr_curves": {
+    "best_single_feature": [
+      {
+        "precision": 0.143994,
+        "recall": 1.0
+      },
+      {
+        "precision": 0.145322,
+        "recall": 0.98895
+      },
+      {
+        "precision": 0.146913,
+        "recall": 0.979282
+      },
+      {
+        "precision": 0.149238,
+        "recall": 0.973757
+      },
+      {
+        "precision": 0.151633,
+        "recall": 0.968232
+      },
+      {
+        "precision": 0.15354,
+        "recall": 0.958564
+      },
+      {
+        "precision": 0.156406,
+        "recall": 0.95442
+      },
+      {
+        "precision": 0.159602,
+        "recall": 0.951657
+      },
+      {
+        "precision": 0.162553,
+        "recall": 0.946133
+      },
+      {
+        "precision": 0.164397,
+        "recall": 0.933702
+      },
+      {
+        "precision": 0.166916,
+        "recall": 0.924033
+      },
+      {
+        "precision": 0.169739,
+        "recall": 0.915746
+      },
+      {
+        "precision": 0.172495,
+        "recall": 0.906077
+      },
+      {
+        "precision": 0.175851,
+        "recall": 0.899171
+      },
+      {
+        "precision": 0.179117,
+        "recall": 0.890884
+      },
+      {
+        "precision": 0.18239,
+        "recall": 0.881215
+      },
+      {
+        "precision": 0.186047,
+        "recall": 0.872928
+      },
+      {
+        "precision": 0.190837,
+        "recall": 0.868785
+      },
+      {
+        "precision": 0.194679,
+        "recall": 0.859116
+      },
+      {
+        "precision": 0.199741,
+        "recall": 0.853591
+      },
+      {
+        "precision": 0.205025,
+        "recall": 0.845304
+      },
+      {
+        "precision": 0.209375,
+        "recall": 0.832873
+      },
+      {
+        "precision": 0.211663,
+        "recall": 0.812155
+      },
+      {
+        "precision": 0.215166,
+        "recall": 0.79558
+      },
+      {
+        "precision": 0.218944,
+        "recall": 0.779006
+      },
+      {
+        "precision": 0.223929,
+        "recall": 0.765193
+      },
+      {
+        "precision": 0.229667,
+        "recall": 0.752762
+      },
+      {
+        "precision": 0.236356,
+        "recall": 0.741713
+      },
+      {
+        "precision": 0.245622,
+        "recall": 0.736188
+      },
+      {
+        "precision": 0.254712,
+        "recall": 0.727901
+      },
+      {
+        "precision": 0.263345,
+        "recall": 0.71547
+      },
+      {
+        "precision": 0.273848,
+        "recall": 0.705801
+      },
+      {
+        "precision": 0.284986,
+        "recall": 0.694751
+      },
+      {
+        "precision": 0.296875,
+        "recall": 0.68232
+      },
+      {
+        "precision": 0.310301,
+        "recall": 0.66989
+      },
+      {
+        "precision": 0.324435,
+        "recall": 0.654696
+      },
+      {
+        "precision": 0.341428,
+        "recall": 0.640884
+      },
+      {
+        "precision": 0.3593,
+        "recall": 0.624309
+      },
+      {
+        "precision": 0.378565,
+        "recall": 0.604972
+      },
+      {
+        "precision": 1.0,
+        "recall": 0.0
+      }
+    ],
+    "logistic_regression": [
+      {
+        "precision": 0.143994,
+        "recall": 1.0
+      },
+      {
+        "precision": 0.146909,
+        "recall": 0.994475
+      },
+      {
+        "precision": 0.149172,
+        "recall": 0.983425
+      },
+      {
+        "precision": 0.152389,
+        "recall": 0.977901
+      },
+      {
+        "precision": 0.156264,
+        "recall": 0.975138
+      },
+      {
+        "precision": 0.159189,
+        "recall": 0.96547
+      },
+      {
+        "precision": 0.162796,
+        "recall": 0.958564
+      },
+      {
+        "precision": 0.166103,
+        "recall": 0.948895
+      },
+      {
+        "precision": 0.168912,
+        "recall": 0.935083
+      },
+      {
+        "precision": 0.17268,
+        "recall": 0.925414
+      },
+      {
+        "precision": 0.176659,
+        "recall": 0.915746
+      },
+      {
+        "precision": 0.17931,
+        "recall": 0.89779
+      },
+      {
+        "precision": 0.182104,
+        "recall": 0.879834
+      },
+      {
+        "precision": 0.18546,
+        "recall": 0.86326
+      },
+      {
+        "precision": 0.189331,
+        "recall": 0.848066
+      },
+      {
+        "precision": 0.1939,
+        "recall": 0.834254
+      },
+      {
+        "precision": 0.199531,
+        "recall": 0.823204
+      },
+      {
+        "precision": 0.204196,
+        "recall": 0.80663
+      },
+      {
+        "precision": 0.212299,
+        "recall": 0.801105
+      },
+      {
+        "precision": 0.219962,
+        "recall": 0.791436
+      },
+      {
+        "precision": 0.22931,
+        "recall": 0.78453
+      },
+      {
+        "precision": 0.237447,
+        "recall": 0.770718
+      },
+      {
+        "precision": 0.246625,
+        "recall": 0.756906
+      },
+      {
+        "precision": 0.257279,
+        "recall": 0.744475
+      },
+      {
+        "precision": 0.269446,
+        "recall": 0.732044
+      },
+      {
+        "precision": 0.280587,
+        "recall": 0.712707
+      },
+      {
+        "precision": 0.291472,
+        "recall": 0.689227
+      },
+      {
+        "precision": 0.306818,
+        "recall": 0.671271
+      },
+      {
+        "precision": 0.323267,
+        "recall": 0.650552
+      },
+      {
+        "precision": 0.34161,
+        "recall": 0.627072
+      },
+      {
+        "precision": 0.368552,
+        "recall": 0.611878
+      },
+      {
+        "precision": 0.402235,
+        "recall": 0.596685
+      },
+      {
+        "precision": 0.395324,
+        "recall": 0.513812
+      },
+      {
+        "precision": 0.414907,
+        "recall": 0.461326
+      },
+      {
+        "precision": 0.424288,
+        "recall": 0.390884
+      },
+      {
+        "precision": 0.432892,
+        "recall": 0.316298
+      },
+      {
+        "precision": 0.440506,
+        "recall": 0.240331
+      },
+      {
+        "precision": 0.450758,
+        "recall": 0.164365
+      },
+      {
+        "precision": 0.613636,
+        "recall": 0.111878
+      },
+      {
+        "precision": 1.0,
+        "recall": 0.0
+      }
+    ],
+    "prevalence": [
+      {
+        "precision": 0.143994,
+        "recall": 1.0
+      },
+      {
+        "precision": 1.0,
+        "recall": 0.0
+      }
+    ]
+  },
+  "roc_auc": {
+    "best_single_feature": 0.749135,
+    "logistic_regression": 0.755593
+  },
+  "survival": {
+    "groups": {
+      "high": {
+        "curve": [
+          {
+            "s": 1.0,
+            "t": 0
+          },
+          {
+            "s": 0.938544,
+            "t": 1
+          },
+          {
+            "s": 0.880668,
+            "t": 2
+          },
+          {
+            "s": 0.826372,
+            "t": 3
+          },
+          {
+            "s": 0.781623,
+            "t": 4
+          },
+          {
+            "s": 0.741647,
+            "t": 5
+          },
+          {
+            "s": 0.702267,
+            "t": 6
+          },
+          {
+            "s": 0.66731,
+            "t": 7
+          },
+          {
+            "s": 0.635876,
+            "t": 8
+          },
+          {
+            "s": 0.6076,
+            "t": 9
+          },
+          {
+            "s": 0.578632,
+            "t": 10
+          },
+          {
+            "s": 0.554968,
+            "t": 11
+          },
+          {
+            "s": 0.533408,
+            "t": 12
+          },
+          {
+            "s": 0.510905,
+            "t": 13
+          },
+          {
+            "s": 0.491525,
+            "t": 14
+          },
+          {
+            "s": 0.472907,
+            "t": 15
+          },
+          {
+            "s": 0.454227,
+            "t": 16
+          },
+          {
+            "s": 0.437404,
+            "t": 17
+          },
+          {
+            "s": 0.420406,
+            "t": 18
+          },
+          {
+            "s": 0.405783,
+            "t": 19
+          },
+          {
+            "s": 0.392608,
+            "t": 20
+          },
+          {
+            "s": 0.376847,
+            "t": 21
+          },
+          {
+            "s": 0.367266,
+            "t": 22
+          },
+          {
+            "s": 0.361838,
+            "t": 23
+          },
+          {
+            "s": 0.357631,
+            "t": 24
+          },
+          {
+            "s": 0.352558,
+            "t": 25
+          },
+          {
+            "s": 0.345968,
+            "t": 26
+          },
+          {
+            "s": 0.341749,
+            "t": 27
+          },
+          {
+            "s": 0.335646,
+            "t": 28
+          },
+          {
+            "s": 0.323215,
+            "t": 29
+          }
+        ],
+        "events": 912,
+        "median_months": 14,
+        "n": 1676
+      },
+      "low": {
+        "curve": [
+          {
+            "s": 1.0,
+            "t": 0
+          },
+          {
+            "s": 0.990453,
+            "t": 1
+          },
+          {
+            "s": 0.98031,
+            "t": 2
+          },
+          {
+            "s": 0.97136,
+            "t": 3
+          },
+          {
+            "s": 0.960621,
+            "t": 4
+          },
+          {
+            "s": 0.951074,
+            "t": 5
+          },
+          {
+            "s": 0.940931,
+            "t": 6
+          },
+          {
+            "s": 0.929685,
+            "t": 7
+          },
+          {
+            "s": 0.917175,
+            "t": 8
+          },
+          {
+            "s": 0.908868,
+            "t": 9
+          },
+          {
+            "s": 0.898648,
+            "t": 10
+          },
+          {
+            "s": 0.889392,
+            "t": 11
+          },
+          {
+            "s": 0.877916,
+            "t": 12
+          },
+          {
+            "s": 0.867338,
+            "t": 13
+          },
+          {
+            "s": 0.859755,
+            "t": 14
+          },
+          {
+            "s": 0.851634,
+            "t": 15
+          },
+          {
+            "s": 0.841745,
+            "t": 16
+          },
+          {
+            "s": 0.833434,
+            "t": 17
+          },
+          {
+            "s": 0.825681,
+            "t": 18
+          },
+          {
+            "s": 0.817125,
+            "t": 19
+          },
+          {
+            "s": 0.809283,
+            "t": 20
+          },
+          {
+            "s": 0.800505,
+            "t": 21
+          },
+          {
+            "s": 0.790549,
+            "t": 22
+          },
+          {
+            "s": 0.78133,
+            "t": 23
+          },
+          {
+            "s": 0.770478,
+            "t": 24
+          },
+          {
+            "s": 0.757529,
+            "t": 25
+          },
+          {
+            "s": 0.74563,
+            "t": 26
+          },
+          {
+            "s": 0.729878,
+            "t": 27
+          },
+          {
+            "s": 0.714181,
+            "t": 28
+          },
+          {
+            "s": 0.683791,
+            "t": 29
+          }
+        ],
+        "events": 281,
+        "median_months": null,
+        "n": 1676
+      },
+      "medium": {
+        "curve": [
+          {
+            "s": 1.0,
+            "t": 0
+          },
+          {
+            "s": 0.988067,
+            "t": 1
+          },
+          {
+            "s": 0.976134,
+            "t": 2
+          },
+          {
+            "s": 0.961814,
+            "t": 3
+          },
+          {
+            "s": 0.947494,
+            "t": 4
+          },
+          {
+            "s": 0.934964,
+            "t": 5
+          },
+          {
+            "s": 0.924821,
+            "t": 6
+          },
+          {
+            "s": 0.915548,
+            "t": 7
+          },
+          {
+            "s": 0.905958,
+            "t": 8
+          },
+          {
+            "s": 0.894633,
+            "t": 9
+          },
+          {
+            "s": 0.884182,
+            "t": 10
+          },
+          {
+            "s": 0.87251,
+            "t": 11
+          },
+          {
+            "s": 0.862507,
+            "t": 12
+          },
+          {
+            "s": 0.852825,
+            "t": 13
+          },
+          {
+            "s": 0.840957,
+            "t": 14
+          },
+          {
+            "s": 0.828284,
+            "t": 15
+          },
+          {
+            "s": 0.817603,
+            "t": 16
+          },
+          {
+            "s": 0.808169,
+            "t": 17
+          },
+          {
+            "s": 0.801349,
+            "t": 18
+          },
+          {
+            "s": 0.792692,
+            "t": 19
+          },
+          {
+            "s": 0.783109,
+            "t": 20
+          },
+          {
+            "s": 0.775491,
+            "t": 21
+          },
+          {
+            "s": 0.765242,
+            "t": 22
+          },
+          {
+            "s": 0.759415,
+            "t": 23
+          },
+          {
+            "s": 0.754895,
+            "t": 24
+          },
+          {
+            "s": 0.749464,
+            "t": 25
+          },
+          {
+            "s": 0.746073,
+            "t": 26
+          }
+        ],
+        "events": 316,
+        "median_months": null,
+        "n": 1676
+      }
+    },
+    "n": 5028
+  },
+  "watchlist": [
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0207",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 7,
+      "score": 0.4727,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0052",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 6,
+      "score": 0.4638,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0233",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 6,
+      "score": 0.4624,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0203",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 5,
+      "score": 0.4525,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "CNS",
+      "drug_id": "D0175",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 4,
+      "score": 0.4427,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0031",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 3,
+      "score": 0.4265,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Anti-infective",
+      "drug_id": "D0117",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 2,
+      "score": 0.4068,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "CNS",
+      "drug_id": "D0202",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 2,
+      "score": 0.4061,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Respiratory",
+      "drug_id": "D0177",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 1,
+      "score": 0.3865,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "CNS",
+      "drug_id": "D0027",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 1,
+      "score": 0.3826,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Cardiovascular",
+      "drug_id": "D0224",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 1,
+      "score": 0.3483,
+      "single_supplier": true,
+      "suppliers": 1
+    },
+    {
+      "anchor_period": "2025-06",
+      "category": "Endocrine",
+      "drug_id": "D0113",
+      "flag": true,
+      "hhi": 1.0,
+      "past_onsets": 8,
+      "score": 0.3402,
+      "single_supplier": true,
+      "suppliers": 1
+    }
+  ]
+}

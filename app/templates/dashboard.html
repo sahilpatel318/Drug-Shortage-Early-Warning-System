@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Drug Shortage Early Warning System</title>
+  <link rel="stylesheet" href="/static/styles.css"/>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Supply chain risk &middot; proof of concept</div>
+    <h1>Drug Shortage Early Warning System</h1>
+    <p class="lede">Scoring which medicines are drifting toward shortage before the
+      official declaration, from single source dependence, manufacturer
+      concentration, past shortage frequency, and recent supplier attrition.</p>
+  </header>
+
+  <div class="provenance">
+    <span class="tag">SYNTHETIC DATA</span>
+    <p>{{ meta.provenance_detail }} Seed {{ meta.seed }}. Every metric below is
+      measured on the held out later period and carries its evaluation size.</p>
+  </div>
+
+  <!-- Headline metrics. Chartreuse marks the one metric that carries the thesis. -->
+  <div class="metrics">
+    <div class="stat focal">
+      <div class="label">PR-AUC, logistic model</div>
+      <div class="value">{{ "%.3f"|format(pr.logistic_regression) }}</div>
+      <div class="sub">base rate {{ "%.3f"|format(ds.test_prevalence) }},
+        lift {{ "%+.3f"|format(report.pr_auc_lift_over_prevalence) }}
+        (n={{ ds.test_rows }}, pos={{ ds.test_positives }})</div>
+    </div>
+    <div class="stat">
+      <div class="label">Shortages flagged early</div>
+      <div class="value">{{ detection_pct }}%</div>
+      <div class="sub">{{ lead.flagged_ahead }} of {{ lead.test_onsets_total }}
+        test shortages alerted within the prior year</div>
+    </div>
+    <div class="stat">
+      <div class="label">Median lead time</div>
+      <div class="value">{{ lead.median_lead_days|round|int }}<span style="font-size:16px"> d</span></div>
+      <div class="sub">IQR {{ lead.p25_lead_days|round|int }} to
+        {{ lead.p75_lead_days|round|int }} days before onset</div>
+    </div>
+    <div class="stat">
+      <div class="label">High risk time to shortage</div>
+      <div class="value">{{ high.median_months if high.median_months else "&mdash;"|safe }}<span style="font-size:16px"> mo</span></div>
+      <div class="sub"><em>top risk tercile; lower groups stay above 50 percent
+        survival across the window</em></div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Model performance</h2>
+    <span class="note">held out test period, {{ ds.test_rows }} at risk drug months</span>
+  </div>
+  <div class="panels">
+    <div class="card panel">
+      <h3>Precision and recall</h3>
+      <span class="caption">The logistic model against the strongest single
+        feature and the no skill base rate. Rare event ranking, so precision
+        recall is the honest lens, not accuracy.</span>
+      {{ svgs.pr|safe }}
+      <div class="legend">
+        <span><i style="background:#B4E33D"></i>Logistic model
+          ({{ "%.3f"|format(pr.logistic_regression) }})</span>
+        <span><i style="background:#8C6E8E"></i>Best single: {{ report.best_single_feature_name }}
+          ({{ "%.3f"|format(pr.best_single_feature) }})</span>
+        <span><i style="background:#9A8592"></i>No skill ({{ "%.3f"|format(ds.test_prevalence) }})</span>
+      </div>
+    </div>
+    <div class="card panel">
+      <h3>What drives the score</h3>
+      <span class="caption">Standardized log odds weights on the supply chain
+        features. Single source dependence leads, as the domain would predict.</span>
+      {{ svgs.coef|safe }}
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Timing and survival</h2>
+    <span class="note">how early alerts arrive, and time to next shortage by risk group</span>
+  </div>
+  <div class="panels">
+    <div class="card panel">
+      <h3>Lead time before official onset</h3>
+      <span class="caption">Days between the first alert and the official onset,
+        for shortages the model caught. Alerts on chronically single sourced
+        drugs are persistent, so the distribution skews to the top of the year
+        long watch window.</span>
+      {{ svgs.lead|safe }}
+    </div>
+    <div class="card panel">
+      <h3>Time to next shortage</h3>
+      <span class="caption">Kaplan Meier survival by model risk tercile, with
+        right censoring at the end of the panel. Higher scored drugs reach
+        shortage sooner.</span>
+      {{ svgs.survival|safe }}
+      <div class="legend">
+        <span><i style="background:#E8E2D0"></i>High risk
+          (median {{ surv.groups.high.median_months if surv.groups.high.median_months else "n/a" }} mo)</span>
+        <span><i style="background:#B3A0B2"></i>Medium risk</span>
+        <span><i style="background:#8C6E8E"></i>Low risk</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Watchlist</h2>
+    <span class="note">highest scored drugs at the latest observed month
+      ({{ watchlist[0].anchor_period if watchlist }})</span>
+  </div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Drug</th>
+          <th>Category</th>
+          <th class="num">Risk score</th>
+          <th class="num">Suppliers</th>
+          <th class="num">HHI</th>
+          <th class="num">Past shortages</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in watchlist %}
+        <tr>
+          <td class="drug">{{ d.drug_id }}</td>
+          <td>{{ d.category }}</td>
+          <td class="num">{{ "%.3f"|format(d.score) }}</td>
+          <td class="num">{{ d.suppliers }}{% if d.single_supplier %} <span class="chip">single</span>{% endif %}</td>
+          <td class="num">{{ "%.2f"|format(d.hhi) }}</td>
+          <td class="num">{{ d.past_onsets }}</td>
+          <td>{% if d.flag %}<span class="chip flag">above threshold</span>{% else %}<span class="chip watch">watch</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="caption" style="margin-top:12px"><em>Threshold {{ "%.3f"|format(clf.threshold) }}
+      chosen to maximize F1 on the training period, then applied unchanged here.
+      At this operating point: precision {{ "%.3f"|format(clf.precision) }},
+      recall {{ "%.3f"|format(clf.recall) }} (tp {{ clf.tp }}, fp {{ clf.fp }},
+      fn {{ clf.fn }}).</em></p>
+  </div>
+
+  <div class="section-title"><h2>Assurance</h2></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Firewall and reproducibility</h3>
+      <dl class="kv">
+        <dt>Features independent of the future</dt>
+        <dd class="pass">{{ "pass" if firewall.features_independent_of_future else "FAIL" }}</dd>
+        <dt>Labels react to future scramble</dt>
+        <dd class="pass">{{ "pass" if firewall.labels_depend_on_future else "FAIL" }}</dd>
+        <dt>Rows checked by leakage test</dt>
+        <dd>{{ firewall.n_rows }}</dd>
+        <dt>Train rows (positives)</dt>
+        <dd>{{ ds.train_rows }} ({{ ds.train_positives }})</dd>
+        <dt>Test rows (positives)</dt>
+        <dd>{{ ds.test_rows }} ({{ ds.test_positives }})</dd>
+        <dt>Determinism hash</dt>
+        <dd><code class="mono">{{ report.determinism_hash[:16] }}</code></dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3>Therapeutic category effects</h3>
+      <span class="caption">Learned log odds per category, held separate from the
+        supply chain drivers so the structural signal is not obscured.</span>
+      <table>
+        <tbody>
+        {% for c in category_effects %}
+          <tr>
+            <td>{{ c.label }}</td>
+            <td class="num">{{ "%+.2f"|format(c.coef) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title"><h2>Limitations, stated up front</h2></div>
+  <div class="card">
+    <ul class="limitations">
+      <li><b>This run is synthetic.</b> The link between features and shortages
+        is planted by the generator, so the scores are signal recovery, not a
+        claim about real medicines. The framing for any interview is exactly
+        that.</li>
+      <li><b>Persistent alerts, not a countdown.</b> The score behaves like a
+        standing risk register. Chronically single sourced drugs sit above the
+        threshold for long stretches, so lead time clusters near the top of the
+        watch window. The operational value is prioritization for dual sourcing,
+        not a precise date.</li>
+      <li><b>Real feeds are partial.</b> openFDA and Drug Shortages Canada carry
+        shortage events, not supplier counts or market share. Two of the
+        strongest features here (single supplier, HHI) need a manufacturer
+        source join before a real data run. That join is documented, not done.</li>
+      <li><b>Undetectable by design.</b> A first ever shortage with no supply
+        deterioration and no category signal has nothing for the model to read,
+        and will be missed. Missed cases are counted openly:
+        {{ lead.missed }} of {{ lead.test_onsets_total }} test shortages.</li>
+      <li><b>Precision is modest by choice.</b> At the F1 optimal threshold the
+        model trades precision for recall. The precision recall curve above lets
+        a user pick a stricter operating point.</li>
+    </ul>
+  </div>
+
+  <footer class="foot">
+    Intended real sources:
+    <a href="https://www.drugshortagescanada.ca">Drug Shortages Canada</a> and
+    <a href="https://api.fda.gov/drug/shortages.json">openFDA drug shortages</a>.
+    Current run: synthetic, seed {{ meta.seed }}, generated {{ meta.generated_at_utc }}.
+    Python {{ meta.python }}, numpy {{ meta.numpy }}, pandas {{ meta.pandas }},
+    scikit-learn {{ meta.sklearn }}.
+  </footer>
+
+</div>
+</body>
+</html>
